@@ -2,7 +2,7 @@
 
 resource "azurerm_resource_group" "Akwa" {
   name     = "Akwa"
-  location = "North Europe"
+  location = "West Europe"
 }
 
 resource "azurerm_virtual_network" "Akwa_vn" {
@@ -11,8 +11,8 @@ resource "azurerm_virtual_network" "Akwa_vn" {
   resource_group_name = "${azurerm_resource_group.Akwa.name}"
   address_space       = ["10.6.0.0/16"]
 }
-
-resource "azurerm_subnet" "test" {
+_
+resource "azurerm_subnet" "Akwa_vpn" {
   name                 = "GatewaySubnet"
   resource_group_name  = "${azurerm_resource_group.Akwa.name}"
   virtual_network_name = "${azurerm_virtual_network.test.name}"
@@ -28,7 +28,7 @@ resource "azurerm_local_network_gateway" "onpremise" {
 }
 
 resource "azurerm_public_ip" "AKwa_ip" {
-  name                = "test"
+  name                = "Akwa"
   location            = "${azurerm_resource_group.Akwa.location}"
   resource_group_name = "${azurerm_resource_group.Akwa.name}"
   allocation_method   = "Dynamic"
@@ -49,7 +49,7 @@ resource "azurerm_virtual_network_gateway" "test" {
   ip_configuration {
     public_ip_address_id          = "${azurerm_public_ip.AKwa_ip.id}"
     private_ip_address_allocation = "Dynamic"
-    subnet_id                     = "${azurerm_subnet.test.id}"
+    subnet_id                     = "${azurerm_subnet.Akwa_vpn.id}"
   }
 }
 
