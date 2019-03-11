@@ -29,13 +29,13 @@ resource "azurerm_subnet" "backend" {
   address_prefix       = "10.6.200.0/24"
 }
 
-resource "azurerm_public_ip" " Akwa-app-public-ip " {
- name                = " Akwa-app-public-ip "
+resource "azurerm_public_ip" "Akwa-app-public-ip" {
+ name                = "Akwa-app-public-ip"
  resource_group_name = "${azurerm_resource_group.Akwa.name}"
  location            = "${azurerm_resource_group.Akwa.location}"
  allocation_method   = "Dynamic"
 }
-# since these variables are re-used - a locals block makes this more maintainable
+
 locals {
   backend_address_pool_name      = "${azurerm_virtual_network.Akwa_vn.name}-beap"
   frontend_port_name             = "${azurerm_virtual_network.Akwa_vn.name}-feport"
