@@ -27,7 +27,7 @@ resource "azurerm_local_network_gateway" "Akwa" {
   address_space       = ["10.1.0.0/16"]
 }
 
-resource "azurerm_public_ip" "AKwa-pubic-ip" {
+resource "azurerm_public_ip" "AKwa-vpn-pubic-ip" {
   name                = "Akwa"
   location            = "${azurerm_resource_group.Akwa.location}"
   resource_group_name = "${azurerm_resource_group.Akwa.name}"
@@ -47,7 +47,7 @@ resource "azurerm_virtual_network_gateway" "Akwavpn" {
   sku           = "Basic"
 
   ip_configuration {
-    public_ip_address_id          = "${azurerm_public_ip.AKwa-public-ip.id}"
+    public_ip_address_id          = "${azurerm_public_ip.AKwa-vpn-public-ip.id}"
     private_ip_address_allocation = "Dynamic"
     subnet_id                     = "${azurerm_subnet.vpn-GWsubnet.id}"
   }
